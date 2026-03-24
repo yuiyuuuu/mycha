@@ -188,8 +188,8 @@ app.get("/calculatedistance/:o1/:o2/:d1/:d2", async (req, res, next) => {
 app.get("/fetchalldrinks", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      // `${process.env.EDITOR_LINK}/api/category/fetchall`
-      `http://localhost:3005/api/category/fetchall`,
+      `${process.env.EDITOR_LINK}/api/category/fetchall`,
+      // `http://localhost:3005/api/category/fetchall`,
     );
 
     res.send(data);
@@ -201,8 +201,8 @@ app.get("/fetchalldrinks", async (req, res, next) => {
 app.get("/fetchallregions", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      // `${process.env.EDITOR_LINK}/api/region/fetchall`,
-      "http://localhost:3005/api/region/fetchall",
+      `${process.env.EDITOR_LINK}/api/region/fetchall`,
+      // "http://localhost:3005/api/region/fetchall",
     );
 
     res.send(data);
@@ -254,8 +254,8 @@ app.get("/api/cart/fetchcart/:id", async (req, res, next) => {
 app.post("/api/catering/atc", async (req, res, next) => {
   try {
     const { data } = await axios.post(
-      // `${process.env.EDITOR_LINK}/api/cart/atc`,
-      `http://localhost:3005/api/cart/atc`,
+      `${process.env.EDITOR_LINK}/api/cart/atc`,
+      // `http://localhost:3005/api/cart/atc`,
       req.body,
     );
 
