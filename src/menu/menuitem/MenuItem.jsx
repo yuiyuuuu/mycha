@@ -17,8 +17,8 @@ const MenuItem = () => {
   const [selectedItem, setSelectedItem] = useState({});
 
   console.log(selectedItem, "selected");
-  // const [smallNutrition, setSmallNutrition] = useState({});
-  // const [largeNutrition, setLargeNutrition] = useState({});
+  const [notFound, setNotFound] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
   const [ready, setReady] = useState(false);
 
@@ -129,22 +129,19 @@ const MenuItem = () => {
 
   useEffect(() => {
     const id = params.id;
-    // if (params.id === "8") {
-    //   setSmallOrLarge("large");
-    // }
-
-    // const item = allItems.find((item) => item.id === Number(id));
-
-    // setSelectedItem(item);
-    // setSmallNutrition(item?.nutrition.small);
-    // setLargeNutrition(item?.nutrition.large);
-    // setIsLoading(false);
 
     $.ajax({
       url: `/fetchdrink/${id}`,
       type: "GET",
     })
       .then((res) => {
+        console.log(!res, "response");
+        if (!res) {
+          setNotFound(true);
+          setIsLoading(false);
+          setReady(true);
+          return;
+        }
         setSelectedItem(res);
         setIsLoading(false);
       })
@@ -171,7 +168,7 @@ const MenuItem = () => {
     );
   }
 
-  if (!isLoading && !selectedItem?.id) {
+  if (notFound) {
     return <NotFound />;
   }
 

@@ -215,6 +215,7 @@ app.get("/fetchdrink/:id", async (req, res, next) => {
   try {
     const { data } = await axios.get(
       `${process.env.EDITOR_LINK}/api/drink/fetch/${req.params.id}`,
+      // `http://localhost:3005/api/drink/fetch/${req.params.id}`,
     );
 
     res.send(data);
