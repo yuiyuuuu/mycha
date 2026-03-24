@@ -118,9 +118,9 @@ const StockSlots = ({
           >
             {item[i + 1] === 0 ? 0 : item[i + 1] || "null"}
             {!(
-              stock[i][0] === "Snack" ||
-              stock[i][0] === "Snack Large" ||
-              stock[i][0] === "Snack Small"
+              stock[i]?.[0] === "Snack" ||
+              stock[i]?.[0] === "Snack Large" ||
+              stock[i]?.[0] === "Snack Small"
             ) && (
               <div className='ss-img'>
                 {imgObj[stock[i]?.[0]]?.img ? (

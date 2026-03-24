@@ -23,7 +23,7 @@ const Admin = () => {
       5: 0,
       6: 0,
       7: 0,
-    })
+    }),
   );
   //first number is row, second is column
   const [selectedCoordinates, setSelectedCoordinates] = useState([0, 1]);
@@ -131,7 +131,7 @@ const Admin = () => {
                   5: 0,
                   6: 0,
                   7: 0,
-                })
+                }),
               );
 
               nostock = true;
@@ -155,8 +155,10 @@ const Admin = () => {
 
           await $.ajax({
             type: "GET",
-            url: `/getstockforalocation/${selectedLocation2}`,
+            url: `${import.meta.env.ANDY_ENDPOINT}/${selectedLocation2}`,
           }).then((res) => {
+            console.log("getstockforalocation", { selectedLocation2 });
+
             setLayout(res);
             setLoading(false);
           });
@@ -170,6 +172,9 @@ const Admin = () => {
               });
 
               result.push(inner);
+
+              console.log("setting stock to result", result);
+
               setStock(result);
             });
           } else {
@@ -182,7 +187,7 @@ const Admin = () => {
                 5: 0,
                 6: 0,
                 7: 0,
-              })
+              }),
             );
           }
         })
@@ -204,7 +209,7 @@ const Admin = () => {
     const b = document.querySelector(".stock-region")?.getBoundingClientRect();
     $(".stock-regionoverlay").css(
       "top",
-      window.scrollY + b.top + b.height + 5 + "px"
+      window.scrollY + b.top + b.height + 5 + "px",
     );
     $(".stock-regionoverlay").css("left", b.left - $(this).width / 2);
   }, [regionActive]);
@@ -218,7 +223,7 @@ const Admin = () => {
 
     $(".stock-locationoverlay").css(
       "top",
-      window.scrollY + a.top + a.height + 5 + "px"
+      window.scrollY + a.top + a.height + 5 + "px",
     );
     $(".stock-locationoverlay").css("left", a.left - $(this).width / 2);
   }, [locationActive]);
@@ -417,7 +422,7 @@ const Admin = () => {
           >
             {locations[selectedRegion].find(
               (v) =>
-                v.replace(/ /g, "").replace(/[()]/g, "") === selectedLocation
+                v.replace(/ /g, "").replace(/[()]/g, "") === selectedLocation,
             ) || "Select a location"}
           </div>
         )}
@@ -483,8 +488,8 @@ const Admin = () => {
                     i === 0
                       ? "4px 4px 0 0"
                       : i === locations.length - 1
-                      ? "0 0 4px 4px"
-                      : "",
+                        ? "0 0 4px 4px"
+                        : "",
                 }}
               >
                 {item}
@@ -502,7 +507,7 @@ const Admin = () => {
                 className='stock-li'
                 onClick={() => {
                   setSelectedLocation(
-                    item.replace(/ /g, "").replace(/[()]/g, "")
+                    item.replace(/ /g, "").replace(/[()]/g, ""),
                   );
                   setSelectedLocation2(item);
                   setLocationActive(false);
@@ -512,8 +517,8 @@ const Admin = () => {
                     i === 0
                       ? "4px 4px 0 0"
                       : i === locations.length - 1
-                      ? "0 0 4px 4px"
-                      : "",
+                        ? "0 0 4px 4px"
+                        : "",
                 }}
               >
                 {item}

@@ -38,7 +38,7 @@ const Section2 = () => {
               x: 0,
               ease: "power1",
               duration: 1.4,
-            }
+            },
           );
 
           setTimeout(() => {
@@ -51,7 +51,7 @@ const Section2 = () => {
                 x: 0,
                 ease: "power1",
                 duration: 1.4,
-              }
+              },
             );
           }, 200);
 
@@ -65,7 +65,7 @@ const Section2 = () => {
                 x: 0,
                 ease: "power1",
                 duration: 1.4,
-              }
+              },
             );
           }, 600);
 
@@ -79,7 +79,7 @@ const Section2 = () => {
                 x: 0,
                 ease: "power1",
                 duration: 1.4,
-              }
+              },
             );
           }, 1000);
           setTimeout(() => {
@@ -92,7 +92,7 @@ const Section2 = () => {
                 x: 0,
                 ease: "power1",
                 duration: 1.4,
-              }
+              },
             );
           }, 1000);
 
@@ -113,7 +113,7 @@ const Section2 = () => {
               x: 0,
               ease: "power1",
               duration: 1.4,
-            }
+            },
           );
 
           observer2.unobserve(two);
@@ -132,7 +132,7 @@ const Section2 = () => {
               x: 0,
               ease: "power1",
               duration: 1.4,
-            }
+            },
           );
 
           observer3.unobserve(three);
@@ -238,15 +238,6 @@ const Section2 = () => {
             We prepare hand-crafted drinks daily in our health department
             regulated kitchen and stock our machines with fresh products every
             morning.
-          </div>
-
-          <div className='desc-section2' style={{ marginTop: "30px" }}>
-            At Mycha, we guarantee{" "}
-            <span style={{ color: "rgb(109, 214, 49)", fontStyle: "italic" }}>
-              quality and freshness.
-            </span>{" "}
-            Our drinks have a shelf life of 24-48 hours and drinks that reach
-            this point are immediately removed
           </div>
         </div>
         <div className='instagram op0'>

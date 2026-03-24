@@ -45,12 +45,16 @@ const Checker = () => {
   async function handleChange(loc) {
     setLoading(true);
 
+    let fetch_url = `${import.meta.env.VITE_ANDY_ENDPOINT}/${loc?.fetchName}`;
+
     async function f(count) {
       await $.ajax({
         type: "GET",
-        url: `/getstockforalocation/${loc?.fetchName}`,
+        url: fetch_url,
       })
         .then((res) => {
+          // console.log("fetch_url", fetch_url, "res", res)
+
           if (
             res === "not found" ||
             !res ||
@@ -361,7 +365,8 @@ const Checker = () => {
               >
                 {regionWithLocations
                   ?.find(
-                    (v) => v.name.toLowerCase() === selectedRegion.toLowerCase()
+                    (v) =>
+                      v.name.toLowerCase() === selectedRegion.toLowerCase(),
                   )
                   .locations?.sort(function (a, b) {
                     return a.name.localeCompare(b.name);

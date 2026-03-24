@@ -7,6 +7,14 @@ import "./ct.scss";
 const CheckerTable = ({ info }) => {
   const nav = useNavigate();
 
+  let total = 0;
+
+  const keys = Object.keys(info);
+  for (let i = 0; i < keys.length; ++i) {
+    let key = keys[i];
+    total += info[key].quantity;
+  }
+
   return (
     <div className='ct-parent'>
       <table className='ct-table'>
@@ -53,6 +61,10 @@ const CheckerTable = ({ info }) => {
                 <td>{info[v].quantity}</td>
               </tr>
             ))}
+
+          <td></td>
+          <td></td>
+          <td>{total}</td>
         </tbody>
       </table>
     </div>
