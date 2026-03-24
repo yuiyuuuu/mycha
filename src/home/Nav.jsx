@@ -30,7 +30,7 @@ const Nav = ({ openNav }) => {
       .fromTo(
         ".nav-home",
         { opacity: 0, y: "-30%" },
-        { opacity: 1, y: 0, duration: 1 }
+        { opacity: 1, y: 0, duration: 1 },
       )
       .then(() => {
         setTimeout(() => {
@@ -139,7 +139,7 @@ const Nav = ({ openNav }) => {
             Menu
           </div>
 
-          <div
+          {/* <div
             className='li-nav'
             onClick={() => {
               loc.pathname === "/catering"
@@ -148,7 +148,7 @@ const Nav = ({ openNav }) => {
             }}
           >
             Catering
-          </div>
+          </div> */}
 
           <div
             className='li-nav'

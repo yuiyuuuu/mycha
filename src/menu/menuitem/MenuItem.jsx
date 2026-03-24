@@ -33,7 +33,7 @@ const MenuItem = () => {
   $(window).off("resize", window, h).resize(h);
 
   const [showDesc, setShowDesc] = useState(true);
-  const [showNutrition, setShowNutrition] = useState(false);
+  const [showNutrition, setShowNutrition] = useState(true);
 
   // const [smallOrLarge, setSmallOrLarge] = useState(
   //   params.id === 8 ? "large" : "small"
@@ -50,7 +50,7 @@ const MenuItem = () => {
         {
           scrollLeft: "+=" + $(`#tablehead-${index}`).position()?.left,
         },
-        0
+        0,
       );
   }
 
@@ -243,7 +243,7 @@ const MenuItem = () => {
                 style={{
                   // transform: showNutrition ? "scaleY(1)" : "scaleY(0)",
                   // display: !showNutrition && "none",
-                  maxHeight: showNutrition ? "600px" : 0,
+                  maxHeight: showNutrition ? "48rem" : 0,
                   transition: ".6s ease all",
                 }}
                 className='mitem-height'
@@ -272,7 +272,8 @@ const MenuItem = () => {
                       >
                         {size?.name[0]
                           .toUpperCase()
-                          .concat(size?.name.slice(1))}
+                          .concat(size?.name.slice(1))}{" "}
+                        ({size?.quanity || 400}ml)
                       </div>
                     ))}
                 </div>
@@ -302,22 +303,18 @@ const MenuItem = () => {
                   className='mitem-tableparent'
                   ref={containerRef}
                   id='tableparent'
+                  style={{ marginTop: ".6rem" }}
                 >
                   {selectedItem?.sizes?.map((size, i) => (
                     <NutritionTable nutrition={size} index={i} />
                   ))}
                 </div>
+              </div>
 
-                <div style={{ fontSize: "12px", marginTop: "8px" }}>
-                  Nutrition facts are based on estimates. If you need
-                  assistance, please contact us at{" "}
-                  <a
-                    href='mailto:mychamachine@gmail.com'
-                    style={{ fontSize: "12px", fontWeight: "bold" }}
-                  >
-                    mychamachine@gmail.com
-                  </a>
-                </div>
+              <div style={{ fontSize: ".75rem", marginTop: ".5rem" }}>
+                *The % Daily Value (DV) tells you how much a nutrient in a
+                serving of food contribytes ot a daily diet. 2,000 calories a
+                day is used for general nutrition advice.
               </div>
             </div>
           </div>

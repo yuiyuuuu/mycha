@@ -3,7 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const parser = require("body-parser");
 const path = require("path");
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4001;
 const { createServer } = require("vite");
 require("dotenv").config();
 
@@ -30,7 +30,7 @@ const v = async function () {
 app.get("/fetchlocations", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/data/fetchlocations`
+      `${process.env.EDITOR_LINK}/api/data/fetchlocations`,
     );
 
     res.send(data);
@@ -44,7 +44,7 @@ app.get("/fetchstock/:location", async (req, res, next) => {
     const loc = req.params.location;
 
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/data/fetchstock/${loc}`
+      `${process.env.EDITOR_LINK}/api/data/fetchstock/${loc}`,
       // `http://localhost:4001/api/data/fetchstock/${loc}`
     );
 
@@ -59,7 +59,7 @@ app.get("/fetchstock2/:location", async (req, res, next) => {
     const loc = req.params.location;
 
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/data/fetchstock2/${loc}`
+      `${process.env.EDITOR_LINK}/api/data/fetchstock2/${loc}`,
       // `http://localhost:4001/api/data/fetchstock2/${loc}`
     );
 
@@ -84,7 +84,7 @@ app.get("/fetchstock2/:location", async (req, res, next) => {
 app.get("/fetchlocationsbyregion", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/data/fetchlocationsbyregion`
+      `${process.env.EDITOR_LINK}/api/data/fetchlocationsbyregion`,
       // `http://localhost:3005/api/data/fetchlocationsbyregion`
     );
 
@@ -101,7 +101,7 @@ app.post("/sendstock", async (req, res, next) => {
     const { data } = await axios.post(
       `${process.env.EDITOR_LINK}/api/data/sendstock`,
       // `http://localhost:4001/api/data/sendstock`,
-      body
+      body,
     );
 
     res.send(data);
@@ -117,7 +117,7 @@ app.post("/sendstock2", async (req, res, next) => {
     const { data } = await axios.post(
       `${process.env.EDITOR_LINK}/api/data/sendstock2`,
       // `http://localhost:4001/api/data/sendstock2`,
-      body
+      body,
     );
 
     res.send(data);
@@ -142,7 +142,7 @@ app.post("/sendstock2", async (req, res, next) => {
 app.get("/getstockforalocation/:location", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/data/getstockforalocation/${req.params.location}`
+      `${process.env.EDITOR_LINK}/api/data/getstockforalocation/${req.params.location}`,
 
       // `http://localhost:4001/api/data/getstockforalocation/${req.params.location}`
     );
@@ -156,7 +156,7 @@ app.get("/getstockforalocation/:location", async (req, res, next) => {
 app.get("/coordinates/:address", async (req, res, next) => {
   try {
     const zipReq = await axios.get(
-      `https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.VITE_MAPS}&address=${req.params.address}}`
+      `https://maps.googleapis.com/maps/api/geocode/json?key=${process.env.VITE_MAPS}&address=${req.params.address}}`,
     );
 
     res.send(zipReq);
@@ -170,7 +170,7 @@ app.get("/calculatedistance/:o1/:o2/:d1/:d2", async (req, res, next) => {
     const params = req.params;
 
     const { data } = await axios.get(
-      `https://maps.googleapis.com/maps/api/distancematrix/json?key=${process.env.VITE_MAPS}&origins=${params.o1},${params.o2}&destinations=${params.d1},${params.d2}&mode=driving&language=pl-PL`
+      `https://maps.googleapis.com/maps/api/distancematrix/json?key=${process.env.VITE_MAPS}&origins=${params.o1},${params.o2}&destinations=${params.d1},${params.d2}&mode=driving&language=pl-PL`,
     );
 
     function getMiles(meters) {
@@ -188,8 +188,8 @@ app.get("/calculatedistance/:o1/:o2/:d1/:d2", async (req, res, next) => {
 app.get("/fetchalldrinks", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/category/fetchall`
-      // `http://localhost:3005/api/category/fetchall`
+      // `${process.env.EDITOR_LINK}/api/category/fetchall`
+      `http://localhost:3005/api/category/fetchall`,
     );
 
     res.send(data);
@@ -201,8 +201,8 @@ app.get("/fetchalldrinks", async (req, res, next) => {
 app.get("/fetchallregions", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/region/fetchall`
-      // "http://localhost:3005/api/region/fetchall"
+      // `${process.env.EDITOR_LINK}/api/region/fetchall`,
+      "http://localhost:3005/api/region/fetchall",
     );
 
     res.send(data);
@@ -214,7 +214,7 @@ app.get("/fetchallregions", async (req, res, next) => {
 app.get("/fetchdrink/:id", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/drink/fetch/${req.params.id}`
+      `${process.env.EDITOR_LINK}/api/drink/fetch/${req.params.id}`,
     );
 
     res.send(data);
@@ -226,7 +226,7 @@ app.get("/fetchdrink/:id", async (req, res, next) => {
 app.get("/traffic", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/traffic/fetchall`
+      `${process.env.EDITOR_LINK}/api/traffic/fetchall`,
       // `http://localhost:3005/api/traffic/fetchall`
     );
 
@@ -240,7 +240,7 @@ app.get("/traffic", async (req, res, next) => {
 app.get("/api/cart/fetchcart/:id", async (req, res, next) => {
   try {
     const { data } = await axios.get(
-      `${process.env.EDITOR_LINK}/api/cart/${req.params.id}`
+      `${process.env.EDITOR_LINK}/api/cart/${req.params.id}`,
       // `http://localhost:3005/api/cart/findcart/${req.params.id}`
     );
 
@@ -256,7 +256,7 @@ app.post("/api/catering/atc", async (req, res, next) => {
     const { data } = await axios.post(
       // `${process.env.EDITOR_LINK}/api/cart/atc`,
       `http://localhost:3005/api/cart/atc`,
-      req.body
+      req.body,
     );
 
     res.send(data).status(200);
@@ -270,7 +270,7 @@ app.put("/t", async (req, res, next) => {
     const { data } = await axios.put(
       `${process.env.EDITOR_LINK}/api/traffic/addone`,
       // `http://localhost:3005/api/traffic/addone`,
-      { id: req.body.id }
+      { id: req.body.id },
     );
 
     res.send("~~~!!!!!BEST MILK TEA EVER!!!!!~~~");

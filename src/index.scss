@@ -3,7 +3,8 @@
 @font-face {
   font-family: "comic_sans_msitalic";
   src: url("../fonts/noitcomic/comic-webfont.eot");
-  src: url("../fonts/noitcomic/comic-webfont.eot?#iefix")
+  src:
+    url("../fonts/noitcomic/comic-webfont.eot?#iefix")
       format("embedded-opentype"),
     url("../fonts/noitcomic/comic-webfont.woff2") format("woff2"),
     url("../fonts/noitcomic/comic-webfont.woff") format("woff"),
@@ -17,7 +18,8 @@
 @font-face {
   font-family: "aquatico";
   src: url("../fonts/aquatico/aquatico-regular-webfont.eot");
-  src: url("../fonts/aquatico/aquatico-regular-webfont.eot?#iefix")
+  src:
+    url("../fonts/aquatico/aquatico-regular-webfont.eot?#iefix")
       format("embedded-opentype"),
     url("../fonts/aquatico/aquatico-regular-webfont.woff2") format("woff2"),
     url("../fonts/aquatico/aquatico-regular-webfont.woff") format("woff"),
@@ -76,6 +78,11 @@ textarea[type="text"] {
 input {
   border: none;
   outline: none;
+}
+
+li,
+ul {
+  list-style-type: none;
 }
 
 .pointer {
@@ -316,4 +323,8 @@ a {
 
   //zindex one below cart zindex
   z-index: 19;
+}
+
+.tworem {
+  font-size: 2rem;
 }
