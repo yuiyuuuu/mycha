@@ -15,6 +15,8 @@ const MenuItem = () => {
   const history = useNavigate();
 
   const [selectedItem, setSelectedItem] = useState({});
+
+  console.log(selectedItem, "selected");
   // const [smallNutrition, setSmallNutrition] = useState({});
   // const [largeNutrition, setLargeNutrition] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -273,7 +275,7 @@ const MenuItem = () => {
                         {size?.name[0]
                           .toUpperCase()
                           .concat(size?.name.slice(1))}{" "}
-                        ({size?.quanity || 400}ml)
+                        ({size?.nutrition?.quanity || 400}ml)
                       </div>
                     ))}
                 </div>
