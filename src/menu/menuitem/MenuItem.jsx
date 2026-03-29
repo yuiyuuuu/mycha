@@ -315,6 +315,10 @@ const MenuItem = () => {
                 serving of food contribytes ot a daily diet. 2,000 calories a
                 day is used for general nutrition advice.
               </div>
+
+              <div style={{ fontSize: ".75rem", marginTop: ".5rem" }}>
+                Ingredients: {selectedItem.ingredients}
+              </div>
             </div>
           </div>
         </div>

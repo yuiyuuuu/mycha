@@ -8,7 +8,6 @@ const { createServer } = require("vite");
 require("dotenv").config();
 
 const axios = require("axios");
-const cron = require("node-cron");
 
 app.use(morgan("dev"));
 app.use(parser.json());

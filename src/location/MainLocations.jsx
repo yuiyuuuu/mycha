@@ -61,7 +61,7 @@ const MainLocations = () => {
   const [searchActive, setSearchActive] = useState(false);
 
   const [selectedCity, setSelectedCity] = useState(
-    window.localStorage.getItem("city") || "Chicago"
+    window.localStorage.getItem("city") || "Chicago",
   );
 
   const [selectedCityLocations, setSelectedCityLocations] = useState();
@@ -73,8 +73,8 @@ const MainLocations = () => {
       regionsWithLocations?.find((v) =>
         window.localStorage.getItem("city")
           ? v.name === window.localStorage.getItem("city")
-          : v.name === "Chicago"
-      )?.locations
+          : v.name === "Chicago",
+      )?.locations,
     );
   }, [regionsWithLocations]);
 
@@ -97,7 +97,7 @@ const MainLocations = () => {
 
             const latlng = new google.maps.LatLng(
               position.coords.latitude,
-              position.coords.longitude
+              position.coords.longitude,
             );
             const geocode = new google.maps.Geocoder().geocode(
               { latLng: latlng },
@@ -111,13 +111,13 @@ const MainLocations = () => {
                   alert("Something went wrong, please try again");
                   setLoading2(false);
                 }
-              }
+              },
             );
           },
           function () {
             setLoading2(false);
             alert("Please allow access to your location");
-          }
+          },
         );
       });
     } else {
@@ -132,7 +132,7 @@ const MainLocations = () => {
     address,
     name,
     hours,
-    itemid
+    itemid,
   ) => {
     mapRef?.panTo({ lat, lng });
     setInfoWindowData({ id, address, name, hours, lat, lng, itemid });
@@ -150,7 +150,7 @@ const MainLocations = () => {
     gsap.fromTo(
       "#locationword",
       { opacity: 0, y: "-70%" },
-      { opacity: 1, y: 0, duration: 1.2 }
+      { opacity: 1, y: 0, duration: 1.2 },
     );
   }, [loading]);
 
@@ -179,10 +179,10 @@ const MainLocations = () => {
     const bounds = new google.maps.LatLngBounds();
     locations
       ? locations?.forEach((v) =>
-          bounds.extend({ lat: v.coordinatesLat, lng: v.coordinatesLong })
+          bounds.extend({ lat: v.coordinatesLat, lng: v.coordinatesLong }),
         )
       : selectedCityLocations?.forEach((v) =>
-          bounds.extend({ lat: v.coordinatesLat, lng: v.coordinatesLong })
+          bounds.extend({ lat: v.coordinatesLat, lng: v.coordinatesLong }),
         );
 
     map
@@ -228,7 +228,7 @@ const MainLocations = () => {
       if (status === "OK") {
         const center = result[0].geometry.location;
         const state = result[0].address_components.find(
-          (v) => v.types.includes("administrative_area_level_1") //admin area level 1 = state
+          (v) => v.types.includes("administrative_area_level_1"), //admin area level 1 = state
         ).short_name;
 
         // if (!location[state]) {
@@ -256,7 +256,7 @@ const MainLocations = () => {
               const start = new google.maps.LatLng(center.lat(), center.lng());
               const end = new google.maps.LatLng(
                 loc[i].coordinatesLat,
-                loc[i].coordinatesLong
+                loc[i].coordinatesLong,
               );
               const re = await distanceMatrix
                 .getDistanceMatrix({
@@ -273,7 +273,7 @@ const MainLocations = () => {
                   }
 
                   const miles = getMiles(
-                    res.rows[0].elements[0].distance.value
+                    res.rows[0].elements[0].distance.value,
                   );
 
                   results.push({
@@ -309,7 +309,10 @@ const MainLocations = () => {
           final.push(v);
         }
 
-        if (i === a.length - 1) resolve();
+        if (i === a.length - 1) {
+          setQueryLoading(false);
+          resolve();
+        }
       });
     });
 
@@ -318,7 +321,7 @@ const MainLocations = () => {
         //if we have one or more results, move the map accordingly
         const bounds = new google.maps.LatLngBounds();
         final.forEach((loc) =>
-          bounds.extend({ lat: loc.coordinatesLat, lng: loc.coordinatesLong })
+          bounds.extend({ lat: loc.coordinatesLat, lng: loc.coordinatesLong }),
         );
         mapRef.fitBounds(bounds, {
           top: 50,
@@ -337,7 +340,7 @@ const MainLocations = () => {
             return -1;
           }
           return 0;
-        })
+        }),
       );
 
       setQueryLoading(false);
@@ -362,7 +365,10 @@ const MainLocations = () => {
           //if we have one or more results, move the map accordingly
           const bounds = new google.maps.LatLngBounds();
           result.forEach((loc) =>
-            bounds.extend({ lat: loc.coordinatesLat, lng: loc.coordinatesLong })
+            bounds.extend({
+              lat: loc.coordinatesLat,
+              lng: loc.coordinatesLong,
+            }),
           );
           mapRef.fitBounds(bounds, {
             top: 50,
@@ -383,7 +389,7 @@ const MainLocations = () => {
             }
 
             return 0;
-          })
+          }),
         );
       }
     });
@@ -686,7 +692,7 @@ const MainLocations = () => {
                               null,
                               region.locations.sort(function (a, b) {
                                 return a.name.localeCompare(b.name);
-                              })
+                              }),
                             );
                             setInfoWindowOpen(false);
                             setSearchActive(false);
@@ -846,7 +852,7 @@ const MainLocations = () => {
                             v.address,
                             v.name,
                             v.hours,
-                            v.id
+                            v.id,
                           );
                         }}
                       >
@@ -949,7 +955,7 @@ const MainLocations = () => {
                           v.address,
                           v.name,
                           v.hours,
-                          v.id
+                          v.id,
                         );
                       }}
                     >
@@ -1041,7 +1047,7 @@ const MainLocations = () => {
                             v.address,
                             v.name,
                             v.hours,
-                            v.id
+                            v.id,
                           );
 
                           //function to calculate total height above our desired element
@@ -1051,7 +1057,7 @@ const MainLocations = () => {
                               if (i2 >= i) return;
 
                               const height = $(
-                                `#querymap-${t.id}`
+                                `#querymap-${t.id}`,
                               ).outerHeight();
                               result += height;
                             });
@@ -1091,7 +1097,7 @@ const MainLocations = () => {
                                 0
                                   ? (function () {
                                       const find = findURLInString(
-                                        infoWindowData.hours
+                                        infoWindowData.hours,
                                       )[0]; //find the link
                                       const index = v.hours.indexOf(find); //get index of link
                                       return (
@@ -1107,7 +1113,7 @@ const MainLocations = () => {
                                             {find}
                                           </a>
                                           {infoWindowData.hours.slice(
-                                            index + find.length
+                                            index + find.length,
                                           )}
                                         </div>
                                       );
@@ -1140,7 +1146,7 @@ const MainLocations = () => {
                                   className='check-stock location-desc'
                                   onClick={() =>
                                     history(
-                                      `/locations/check/${infoWindowData.itemid}`
+                                      `/locations/check/${infoWindowData.itemid}`,
                                     )
                                   }
                                 >
@@ -1172,7 +1178,7 @@ const MainLocations = () => {
                               v.address,
                               v.name,
                               v.hours,
-                              v.id
+                              v.id,
                             );
 
                             //function to calculate total height above our desired element
@@ -1182,7 +1188,7 @@ const MainLocations = () => {
                                 if (i2 >= i) return;
 
                                 const height = $(
-                                  `#querymap-${t.id}`
+                                  `#querymap-${t.id}`,
                                 ).outerHeight();
                                 result += height;
                               });
@@ -1222,14 +1228,14 @@ const MainLocations = () => {
                                     ?.length > 0
                                     ? (function () {
                                         const find = findURLInString(
-                                          infoWindowData.hours
+                                          infoWindowData.hours,
                                         )[0]; //find the link
                                         const index = v.hours.indexOf(find); //get index of link
                                         return (
                                           <div>
                                             {infoWindowData.hours.slice(
                                               0,
-                                              index
+                                              index,
                                             )}{" "}
                                             <a
                                               href={find}
@@ -1243,7 +1249,7 @@ const MainLocations = () => {
                                               {find}
                                             </a>
                                             {infoWindowData.hours.slice(
-                                              index + find.length
+                                              index + find.length,
                                             )}
                                           </div>
                                         );
@@ -1278,7 +1284,7 @@ const MainLocations = () => {
                                     className='check-stock location-desc'
                                     onClick={() =>
                                       history(
-                                        `/locations/check/${infoWindowData.itemid}`
+                                        `/locations/check/${infoWindowData.itemid}`,
                                       )
                                     }
                                   >
