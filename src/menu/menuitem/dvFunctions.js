@@ -27,13 +27,9 @@ export const dailyValues = {
 
 //this function will be used to calculate the DV % value
 export function getPercentDailyValue(amount, key) {
-  // change this later. for now we are using 10 as a placeholder if there isnt a value/
   const dv = dailyValues[key];
 
-  console.log(dv, "dv");
+  if (!dv || dv.value == null || amount == null) return null;
 
-  if (dv == null || dv.value === null) return null;
-
-  const value = typeof dv === "number" ? dv : dv.value;
-  return Math.round(((amount || 10) / value) * 100);
+  return Math.round((amount / dv.value) * 100);
 }
