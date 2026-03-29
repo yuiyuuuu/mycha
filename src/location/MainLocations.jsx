@@ -300,54 +300,53 @@ const MainLocations = () => {
   }
 
   function unfilteredHandle(results) {
+    console.log(results, ";re");
     const final = [];
     setUnfilteredResults(results);
 
-    const t = new Promise((resolve, reject) => {
-      results.forEach((v, i, a) => {
-        if (v.distance <= withinMiles) {
-          final.push(v);
-        }
+    if (results.length < 1) {
+      setQueryLoading(false);
+      return;
+    }
 
-        if (i === a.length - 1) {
-          setQueryLoading(false);
-          resolve();
-        }
-      });
-    });
-
-    t.then(() => {
-      if (final.length >= 1) {
-        //if we have one or more results, move the map accordingly
-        const bounds = new google.maps.LatLngBounds();
-        final.forEach((loc) =>
-          bounds.extend({ lat: loc.coordinatesLat, lng: loc.coordinatesLong }),
-        );
-        mapRef.fitBounds(bounds, {
-          top: 50,
-          left: 50,
-          right: 50,
-          bottom: 50,
-        });
+    results.forEach((v, i, a) => {
+      if (v.distance <= withinMiles) {
+        final.push(v);
       }
-
-      setResultsFromQuery(
-        final.sort(function (a, b) {
-          if (a.distance > b.distance) {
-            return 1;
-          }
-          if (a.distance < b.distance) {
-            return -1;
-          }
-          return 0;
-        }),
-      );
-
-      setQueryLoading(false);
-    }).catch(() => {
-      setQueryLoading(false);
-      alert("Something went wrong, please try again");
     });
+
+    // t.then(() => {
+    if (final.length >= 1) {
+      //if we have one or more results, move the map accordingly
+      const bounds = new google.maps.LatLngBounds();
+      final.forEach((loc) =>
+        bounds.extend({ lat: loc.coordinatesLat, lng: loc.coordinatesLong }),
+      );
+      mapRef.fitBounds(bounds, {
+        top: 50,
+        left: 50,
+        right: 50,
+        bottom: 50,
+      });
+    }
+
+    setResultsFromQuery(
+      final.sort(function (a, b) {
+        if (a.distance > b.distance) {
+          return 1;
+        }
+        if (a.distance < b.distance) {
+          return -1;
+        }
+        return 0;
+      }),
+    );
+
+    setQueryLoading(false);
+    // }).catch((err) => {
+    //   setQueryLoading(false);
+    //   alert("Something went wrong, please try again");
+    // });
   }
 
   //this function will reduce the # of api calls we make when a user selects a different within miles range
