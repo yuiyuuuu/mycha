@@ -175,7 +175,7 @@ const Footer = () => {
           >
             ©{" "}
           </div>
-          2022 - 2024 Mycha LLC
+          2022 - 2026 Mycha LLC
         </div>
         <div style={{ fontStyle: "italic" }} className='f-s-main'>
           Life is full of important choices
