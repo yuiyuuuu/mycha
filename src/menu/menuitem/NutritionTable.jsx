@@ -157,10 +157,10 @@ const NutritionTable = ({ nutrition, index }) => {
             {nutrition.nutrition?.protein}g
           </span>
         </th>
-        <th className='align-right tr-bot'>
+        {/* <th className='align-right tr-bot'>
           {" "}
           {getPercentDailyValue(nutrition.nutrition?.protein, "protein")}%
-        </th>
+        </th> */}
       </tr>
       <tr className='align-left px1-888'>
         <th>
@@ -180,7 +180,7 @@ const NutritionTable = ({ nutrition, index }) => {
           Calcium
           <span className='f500'>
             &nbsp;
-            {nutrition.nutrition?.calcium}mcg
+            {nutrition.nutrition?.calcium}mg
           </span>
         </th>
         <th className='align-right tr-bot'>
