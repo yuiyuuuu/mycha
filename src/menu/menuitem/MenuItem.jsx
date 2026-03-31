@@ -319,6 +319,18 @@ const MenuItem = () => {
               <div style={{ fontSize: ".75rem", marginTop: ".5rem" }}>
                 Ingredients: {selectedItem.ingredients}
               </div>
+
+              {selectedItem?.allergen && (
+                <div
+                  style={{
+                    fontSize: ".75rem",
+                    marginTop: ".5rem",
+                    fontWeight: 700,
+                  }}
+                >
+                  Contains: {selectedItem.allergen}
+                </div>
+              )}
             </div>
           </div>
         </div>
