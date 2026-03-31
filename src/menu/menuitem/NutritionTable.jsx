@@ -69,6 +69,22 @@ const NutritionTable = ({ nutrition, index }) => {
       </tr>
       <tr className='align-left px1-888'>
         <th>
+          Cholesterol{" "}
+          <span className='f500'>
+            &nbsp;{nutrition.nutrition?.cholesterol}g
+          </span>
+        </th>
+        <th className='align-right tr-bot'>
+          {" "}
+          {getPercentDailyValue(
+            nutrition.nutrition?.cholesterol,
+            "cholesterol",
+          )}
+          %
+        </th>
+      </tr>
+      <tr className='align-left px1-888'>
+        <th>
           Sodium{" "}
           <span className='f500'>&nbsp;{nutrition.nutrition?.sodium}g</span>
         </th>
