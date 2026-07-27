@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useCallback, useState, useRef, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,14 +16,14 @@ import {
 import "./location.scss";
 import "./gmap.scss";
 
-import { location } from "./locationsobj";
-
 import LoadingComponent from "../global/LoadingComponent";
 
 import { dispatchSetLocations } from "../store/locations";
 import { findURLInString } from "../helperfunctions";
 
 const libraries = ["places"];
+
+const isVersionOneLocation = (location) => Number(location?.version) === 1;
 
 const MainLocations = () => {
   const history = useNavigate();
@@ -34,6 +34,17 @@ const MainLocations = () => {
   const inputRef = useRef(null);
 
   const regionsWithLocations = useSelector((state) => state.locations);
+
+  const versionOneRegionsWithLocations = useMemo(
+    () =>
+      regionsWithLocations
+        ?.map((region) => ({
+          ...region,
+          locations: region.locations?.filter(isVersionOneLocation) || [],
+        }))
+        .filter((region) => region.locations.length),
+    [regionsWithLocations],
+  );
 
   const [loading, setLoading] = useState(true);
   //overlay loading
@@ -67,16 +78,18 @@ const MainLocations = () => {
   const [selectedCityLocations, setSelectedCityLocations] = useState();
 
   useEffect(() => {
-    if (!regionsWithLocations?.length) return;
+    if (!versionOneRegionsWithLocations?.length) return;
 
-    setSelectedCityLocations(
-      regionsWithLocations?.find((v) =>
+    const selectedRegion =
+      versionOneRegionsWithLocations?.find((v) =>
         window.localStorage.getItem("city")
           ? v.name === window.localStorage.getItem("city")
           : v.name === "Chicago",
-      )?.locations,
-    );
-  }, [regionsWithLocations]);
+      ) || versionOneRegionsWithLocations[0];
+
+    setSelectedCity(selectedRegion?.name);
+    setSelectedCityLocations(selectedRegion?.locations);
+  }, [versionOneRegionsWithLocations]);
 
   const [zipCode, setZipCode] = useState("");
   const [withinMiles, setWithinMiles] = useState(5);
@@ -174,16 +187,14 @@ const MainLocations = () => {
   const onLoad = (map, locations) => {
     if (map) setMapRef(map);
 
-    if (!map && !locations?.length) return; // if a new region is added and no locations
+    const locationsToLoad = locations || selectedCityLocations || [];
+
+    if (!locationsToLoad.length) return; // if a new region is added and no locations
 
     const bounds = new google.maps.LatLngBounds();
-    locations
-      ? locations?.forEach((v) =>
-          bounds.extend({ lat: v.coordinatesLat, lng: v.coordinatesLong }),
-        )
-      : selectedCityLocations?.forEach((v) =>
-          bounds.extend({ lat: v.coordinatesLat, lng: v.coordinatesLong }),
-        );
+    locationsToLoad.forEach((v) =>
+      bounds.extend({ lat: v.coordinatesLat, lng: v.coordinatesLong }),
+    );
 
     map
       ? map.fitBounds(bounds, {
@@ -241,7 +252,9 @@ const MainLocations = () => {
         const results = [];
         const distanceMatrix = new google.maps.DistanceMatrixService();
 
-        const loc = regionsWithLocations.map((v) => v.locations).flat(Infinity);
+        const loc = versionOneRegionsWithLocations
+          .map((v) => v.locations)
+          .flat(Infinity);
 
         const t = new Promise((r) => {
           // loc.forEach((v) => {
@@ -603,16 +616,10 @@ const MainLocations = () => {
 
   //all locations
   useEffect(() => {
-    const result = [];
-
-    Object.keys(location).forEach((v) => {
-      Object.keys(location[v]).forEach((t) => {
-        result.push(...location[v][t]);
-      });
-    });
-
-    setAllLocations(result);
-  }, []);
+    setAllLocations(
+      versionOneRegionsWithLocations.map((v) => v.locations).flat(Infinity),
+    );
+  }, [versionOneRegionsWithLocations]);
 
   const scroll = useCallback(() => {
     const y = window.scrollY;
@@ -679,7 +686,7 @@ const MainLocations = () => {
                   {selectedCity}
                   {showCityOverlay && (
                     <div className='location-optcontainer'>
-                      {regionsWithLocations?.map((region) => (
+                      {versionOneRegionsWithLocations?.map((region) => (
                         <div
                           className='location-opt'
                           onClick={() => {
