@@ -1,4 +1,10 @@
-import React, { useEffect, useCallback, useState, useRef, useMemo } from "react";
+import React, {
+  useEffect,
+  useCallback,
+  useState,
+  useRef,
+  useMemo,
+} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,7 +29,11 @@ import { findURLInString } from "../helperfunctions";
 
 const libraries = ["places"];
 
-const isVersionOneLocation = (location) => Number(location?.version) === 1;
+const isVersionOneLocation = (location) => {
+  const version = location?.version;
+
+  return version === "V1_0" || Number(version) === 1;
+};
 
 const MainLocations = () => {
   const history = useNavigate();
